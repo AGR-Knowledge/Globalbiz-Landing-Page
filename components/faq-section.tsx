@@ -1,7 +1,5 @@
 "use client"
 
-import { useState } from "react"
-
 const faqs = [
   {
     q: "Which sources do you cover? How current are your sources?",
@@ -22,8 +20,6 @@ const faqs = [
 ]
 
 export default function FAQSection() {
-  const [expanded, setExpanded] = useState<number | null>(null)
-
   return (
     <section className="py-20 bg-white">
       <div className="max-w-6xl mx-auto px-5">
@@ -33,21 +29,20 @@ export default function FAQSection() {
           {faqs.map((faq, idx) => (
             <div
               key={idx}
-              className="bg-teal-600 text-white p-6 rounded-lg cursor-pointer hover:bg-teal-700 transition"
-              onClick={() => setExpanded(expanded === idx ? null : idx)}
+              className="group bg-secondary-accent text-white p-6 rounded-lg cursor-pointer hover:bg-orange-600 transition-all duration-300 overflow-hidden"
             >
               <div className="flex justify-between items-start">
                 <div className="flex-1">
                   <p className="font-semibold mb-2">
                     <strong>Q:</strong> {faq.q}
                   </p>
-                  {expanded === idx && (
+                  <div className="max-h-0 group-hover:max-h-96 transition-all duration-300 ease-in-out overflow-hidden">
                     <p className="text-sm opacity-95 mt-3">
                       <strong>A:</strong> {faq.a}
                     </p>
-                  )}
+                  </div>
                 </div>
-                <span className="ml-4 text-xl">{expanded === idx ? "−" : "+"}</span>
+                <span className="ml-4 text-xl group-hover:rotate-180 transition-transform duration-300">+</span>
               </div>
             </div>
           ))}
