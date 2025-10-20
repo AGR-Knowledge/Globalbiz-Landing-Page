@@ -1,6 +1,18 @@
 "use client"
 
+import { useState } from 'react'
+import ContactModal from './contact-modal'
+
 export default function ComparisonSection() {
+  const [showContactModal, setShowContactModal] = useState(false)
+
+  const openContactModal = () => {
+    setShowContactModal(true)
+  }
+
+  const closeContactModal = () => {
+    setShowContactModal(false)
+  }
   return (
     <section className="py-20 bg-slate-50">
       <div className="max-w-6xl mx-auto px-5">
@@ -38,13 +50,19 @@ export default function ComparisonSection() {
             <p className="mb-6 text-sm">AI-synthesized intelligence, on your schedule, on your terms.</p>
             <p className="mb-6 text-sm">Get a guided walkthrough. See your sources, your sectors,
               your branding - live.</p>
-            <button className="bg-white text-secondary-accent px-6 py-2 rounded font-semibold hover:bg-gray-100 transition text-sm">
+            <button
+              onClick={openContactModal}
+              className="bg-white text-secondary-accent px-6 py-2 rounded font-semibold hover:bg-gray-100 transition text-sm"
+            >
               Book a demo today!
             </button>
             <p className="text-xs text-center mt-3 opacity-90">Or Email: ankur@agrknowledge.com</p>
           </div>
         </div>
       </div>
+
+      {/* Contact Modal */}
+      <ContactModal isOpen={showContactModal} onClose={closeContactModal} />
     </section>
   )
 }

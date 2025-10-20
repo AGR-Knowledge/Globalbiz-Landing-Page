@@ -1,8 +1,19 @@
 "use client"
 
 import Image from 'next/image'
+import ContactModal from './contact-modal'
+import { useState } from 'react'
 
 export default function PipelineSection() {
+  const [showContactModal, setShowContactModal] = useState(false)
+
+  const openContactModal = () => {
+    setShowContactModal(true)
+  }
+
+  const closeContactModal = () => {
+    setShowContactModal(false)
+  }
   return (
     <section className="py-20 bg-white" id="pipeline">
       <div className="max-w-6xl mx-auto px-5">
@@ -13,10 +24,10 @@ export default function PipelineSection() {
         <p className="text-sm text-gray-700 mb-12">An end-to-end AI business intelligence engine. Turning scattered information into actionable clarity</p>
 
         <div className="bg-gray-50 p-8 rounded-lg mb-8">
-          <h3 className="text-xl font-bold text-center mb-2">GlobalBiz AI Workflow</h3>
+          {/* <h3 className="text-xl font-bold text-center mb-2">GlobalBiz AI Workflow</h3>
           <p className="text-center text-gray-600 text-sm mb-8">
             AI-Powered Processing Pipeline—From 100,000+ sources to your inbox
-          </p>
+          </p> */}
 
           <div className="flex justify-center mb-12">
             <div className="relative w-full max-w-4xl">
@@ -31,9 +42,9 @@ export default function PipelineSection() {
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-lg grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+          <div className="bg-white p-6 rounded-lg grid grid-cols-1 md:grid-cols-3 gap-6 text-center mb-6">
             <div>
-              <div className="text-2xl font-bold text-secondary-accent">100,000+</div>
+              <div className="text-2xl font-bold text-secondary-accent">100+</div>
               <div className="text-sm text-gray-600">Sources Monitored</div>
             </div>
             <div>
@@ -45,8 +56,19 @@ export default function PipelineSection() {
               <div className="text-sm text-gray-600">Processing Time</div>
             </div>
           </div>
+          <div className="text-center">
+            <button
+              onClick={openContactModal}
+              className="bg-secondary-accent text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-600 transition"
+            >
+              Book a demo today ! →
+            </button>
+          </div>
         </div>
       </div>
+
+      {/* Contact Modal */}
+      <ContactModal isOpen={showContactModal} onClose={closeContactModal} />
     </section>
   )
 }

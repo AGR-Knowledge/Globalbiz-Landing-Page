@@ -1,10 +1,12 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
+import ContactModal from './contact-modal'
 
 export default function Hero() {
   const [pulse, setPulse] = useState(true)
   const [isMuted, setIsMuted] = useState(true)
+  const [showContactModal, setShowContactModal] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
@@ -22,6 +24,14 @@ export default function Hero() {
       }
       setIsMuted(videoRef.current.muted)
     }
+  }
+
+  const openContactModal = () => {
+    setShowContactModal(true)
+  }
+
+  const closeContactModal = () => {
+    setShowContactModal(false)
   }
 
   return (
@@ -71,7 +81,10 @@ export default function Hero() {
               </li>
             </ul>
 
-            <button className="bg-secondary-accent text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-600 transition">
+            <button
+              onClick={openContactModal}
+              className="bg-secondary-accent text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-600 transition"
+            >
               Book a demo today ! →
             </button>
           </div>
@@ -110,6 +123,9 @@ export default function Hero() {
           </div>
         </div>
       </div>
+
+      {/* Contact Modal */}
+      <ContactModal isOpen={showContactModal} onClose={closeContactModal} />
     </section>
   )
 }

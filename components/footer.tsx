@@ -1,8 +1,20 @@
 "use client"
 
 import Image from 'next/image'
+import { useState } from 'react'
+import ContactModal from './contact-modal'
 
 export default function Footer() {
+  const [showContactModal, setShowContactModal] = useState(false)
+
+  const openContactModal = () => {
+    setShowContactModal(true)
+  }
+
+  const closeContactModal = () => {
+    setShowContactModal(false)
+  }
+
   return (
     <footer id="footer" className="bg-primary-color text-white py-16">
       <div className="max-w-6xl mx-auto px-5">
@@ -49,7 +61,10 @@ export default function Footer() {
             <h3 className="text-lg font-semibold">Contact</h3>
             <div className="space-y-2">
               <p className="text-sm text-gray-300">Book a demo today</p>
-              <button className="bg-secondary-accent text-white px-6 py-2 rounded-lg font-semibold hover:bg-orange-600 transition-colors">
+              <button
+                onClick={openContactModal}
+                className="bg-secondary-accent text-white px-6 py-2 rounded-lg font-semibold hover:bg-orange-600 transition-colors"
+              >
                 Get Started
               </button>
             </div>
@@ -69,6 +84,9 @@ export default function Footer() {
           </div>
         </div>
       </div>
+
+      {/* Contact Modal */}
+      <ContactModal isOpen={showContactModal} onClose={closeContactModal} />
     </footer>
   )
 }
