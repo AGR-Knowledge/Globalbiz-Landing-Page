@@ -17,7 +17,14 @@ export default function Header() {
               className="h-10 w-auto"
             />
             <div className="h-8 w-px bg-gray-200"></div>
-            <div className="text-4xl font-bold text-secondary-accent tracking-tight">GlobalBiz</div>
+            <div
+              className="text-4xl font-bold tracking-tight bg-clip-text text-transparent"
+              style={{
+                backgroundImage: 'linear-gradient(to right, #E46C5D, #B48BCB, #6FA8E7)'
+              }}
+            >
+              GlobalBiz
+            </div>
           </div>
         </div>
       </div>

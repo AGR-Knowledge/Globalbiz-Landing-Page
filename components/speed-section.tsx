@@ -59,7 +59,15 @@ export default function SpeedSection() {
     <section className="py-20 bg-slate-50">
       <div className="max-w-6xl mx-auto px-5">
         <h2 className="text-4xl font-bold mb-2">
-          <span className="text-secondary-accent">GlobalBiz</span> - Built for speed, clarity, & impact
+          <span
+            className="bg-clip-text text-transparent"
+            style={{
+              backgroundImage: 'linear-gradient(to right, #E46C5D, #B48BCB, #6FA8E7)'
+            }}
+          >
+            GlobalBiz
+          </span>{" "}
+          - Built for speed, clarity, & impact
         </h2>
         <p className="text-2xl text-gray-700 mb-4">Replace hours of research with one AI-curated feed</p>
         <p className="text-sm text-gray-700 mb-12">Purpose‑built for competitive intelligence and executive briefings . GlobalBiz learns your preferences.</p>
@@ -70,11 +78,15 @@ export default function SpeedSection() {
             return (
               <div key={idx} className="text-center">
                 <div className="flex justify-center mb-4">
-                  <IconComponent className="w-12 h-12 text-secondary-accent" />
+                  <div
+                    className="w-12 h-12 rounded-lg flex items-center justify-center bg-[#E46C5D]"
+                  >
+                    <IconComponent className="w-8 h-8 text-white" />
+                  </div>
                 </div>
-                <div className="bg-secondary-accent text-white p-4 rounded-lg text-sm min-h-32 flex flex-col justify-center">
-                  <h3 className="font-semibold mb-2 text-base">{benefit.title}</h3>
-                  <p className="text-sm opacity-95">{benefit.text}</p>
+                <div className="bg-gradient-to-br from-slate-100 to-slate-200 border border-slate-300/50 text-gray-800 p-4 rounded-lg text-sm min-h-32 flex flex-col justify-center hover:shadow-lg transition-shadow duration-300">
+                  <h3 className="font-semibold mb-2 text-base text-gray-900">{benefit.title}</h3>
+                  <p className="text-sm text-gray-700">{benefit.text}</p>
                 </div>
               </div>
             )

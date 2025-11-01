@@ -5,6 +5,7 @@ import SpeedSection from "@/components/speed-section"
 import PipelineSection from "@/components/pipeline-section"
 import ComparisonSection from "@/components/comparison-section"
 import FAQSection from "@/components/faq-section"
+import ContactSection from "@/components/contact-section"
 import Footer from "@/components/footer"
 import FloatingButtons from "@/components/floating-buttons"
 
@@ -18,6 +19,7 @@ export default function Home() {
       <PipelineSection />
       <ComparisonSection />
       <FAQSection />
+      <ContactSection />
       <Footer />
       <FloatingButtons />
     </main>

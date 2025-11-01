@@ -29,20 +29,27 @@ export default function FAQSection() {
           {faqs.map((faq, idx) => (
             <div
               key={idx}
-              className="group bg-secondary-accent text-white p-6 rounded-lg cursor-pointer hover:bg-orange-600 transition-all duration-300 overflow-hidden"
+              className="group bg-gradient-to-br from-slate-50 to-slate-100/50 border border-slate-200/50 text-gray-800 p-6 rounded-lg cursor-pointer hover:shadow-lg hover:border-slate-300 transition-all duration-300 overflow-hidden"
             >
               <div className="flex justify-between items-start">
                 <div className="flex-1">
-                  <p className="font-semibold mb-2">
-                    <strong>Q:</strong> {faq.q}
+                  <p className="font-semibold mb-2 text-gray-900">
+                    <strong className="text-gray-600">Q:</strong> {faq.q}
                   </p>
                   <div className="max-h-0 group-hover:max-h-96 transition-all duration-300 ease-in-out overflow-hidden">
-                    <p className="text-sm opacity-95 mt-3">
-                      <strong>A:</strong> {faq.a}
+                    <p className="text-sm text-gray-700 mt-3">
+                      <strong className="text-gray-600">A:</strong> {faq.a}
                     </p>
                   </div>
                 </div>
-                <span className="ml-4 text-xl group-hover:rotate-180 transition-transform duration-300">+</span>
+                <span
+                  className="ml-4 text-2xl font-light text-gray-400 group-hover:rotate-180 group-hover:text-gray-600 transition-all duration-300"
+                  style={{
+                    lineHeight: '1'
+                  }}
+                >
+                  +
+                </span>
               </div>
             </div>
           ))}
