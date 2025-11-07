@@ -21,9 +21,9 @@ export default function ComparisonSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Traditional */}
-          <div className="bg-green-100 p-8 rounded-lg">
-            <h3 className="text-2xl font-bold mb-6 text-gray-800">Traditional</h3>
-            <ul className="space-y-3 text-sm text-gray-700">
+          <div className="bg-gradient-to-br from-gray-50 to-gray-100/50 border border-gray-200 p-8 rounded-lg">
+            <h3 className="text-2xl font-bold mb-6 text-gray-700">Traditional</h3>
+            <ul className="space-y-3 text-sm text-gray-600">
               <li>• One source at a time: stay glued onto each RSS feed, newsletter, blog. Copy paste into docs.</li>
               <li>• High duplication, low trust signal</li>
               <li>• No Audit trail, version chaos</li>
@@ -45,18 +45,21 @@ export default function ComparisonSection() {
           </div>
 
           {/* CTA */}
-          <div className="bg-secondary-accent text-white p-8 rounded-lg flex flex-col justify-center">
-            <h3 className="text-2xl font-bold mb-4">With GlobalBiz: Never wake up uninformed again</h3>
-            <p className="mb-6 text-sm">AI-synthesized intelligence, on your schedule, on your terms.</p>
-            <p className="mb-6 text-sm">Get a guided walkthrough. See your sources, your sectors,
+          <div className="bg-gradient-to-br from-slate-100 to-slate-200/50 border border-slate-300/50 text-gray-800 p-8 rounded-lg flex flex-col justify-center">
+            <h3 className="text-2xl font-bold mb-4 text-gray-900">With GlobalBiz: Never wake up uninformed again</h3>
+            <p className="mb-6 text-sm text-gray-700">AI-synthesized intelligence, on your schedule, on your terms.</p>
+            <p className="mb-6 text-sm text-gray-700">Get a guided walkthrough. See your sources, your sectors,
               your branding - live.</p>
             <button
               onClick={openContactModal}
-              className="bg-white text-secondary-accent px-6 py-2 rounded font-semibold hover:bg-gray-100 transition text-sm"
+              className="text-white px-6 py-2 rounded-lg font-semibold hover:opacity-90 transition-all duration-300 hover:scale-105 hover:shadow-lg shadow-md"
+              style={{
+                backgroundImage: 'linear-gradient(to right, #E46C5D, #B48BCB, #6FA8E7)'
+              }}
             >
               Book a demo today!
             </button>
-            <p className="text-xs text-center mt-3 opacity-90">Or Email: ankur@agrknowledge.com</p>
+            <p className="text-xs text-center mt-3 text-gray-600">Or Email: ankur@agrknowledge.com</p>
           </div>
         </div>
       </div>

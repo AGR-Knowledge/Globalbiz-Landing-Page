@@ -157,3 +157,20 @@
 .hover\:bg-orange-600:hover {
 	background-color: #ea580c;
 }
+
+@keyframes scroll-vertical {
+	0% {
+		transform: translateY(0);
+	}
+	100% {
+		transform: translateY(-50%);
+	}
+}
+
+.animate-scroll-vertical {
+	animation: scroll-vertical 30s linear infinite;
+}
+
+.animate-scroll-vertical:hover {
+	animation-play-state: paused;
+}

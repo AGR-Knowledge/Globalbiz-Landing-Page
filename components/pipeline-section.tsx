@@ -1,8 +1,9 @@
 "use client"
 
-import Image from 'next/image'
 import ContactModal from './contact-modal'
 import { useState } from 'react'
+import { FileText, Filter, Tag, User, Send, CheckCircle2, ArrowRight, CheckCircle } from 'lucide-react'
+import Image from 'next/image'
 
 export default function PipelineSection() {
   const [showContactModal, setShowContactModal] = useState(false)
@@ -14,6 +15,25 @@ export default function PipelineSection() {
   const closeContactModal = () => {
     setShowContactModal(false)
   }
+
+  const newsSources = [
+    { name: "THE WALL STREET JOURNAL", image: "/News-Source/wsj.png" },
+    { name: "The New York Times", image: "/News-Source/ny-times.png" },
+    { name: "Commercial Property Executive", image: "/News-Source/cpe.png" },
+    { name: "FINANCIAL TIMES", image: "/News-Source/ft.png" },
+    { name: "Nareit", image: "/News-Source/nareit.png" },
+    { name: "Forbes", image: "/News-Source/forbes.png" },
+    { name: "CNBC", image: "/News-Source/cnbc.png" },
+    { name: "WWD", image: "/News-Source/wwd.png" },
+    { name: "VOGUE Business", image: "/News-Source/vouge-business.png" },
+    { name: "ChemicalWeekly", image: "/News-Source/chemical-weekly.png" },
+    { name: "Plastics News", image: "/News-Source/plastics-news.png" },
+    { name: "Bloomberg", image: "/News-Source/bloomberg.png" },
+    { name: "C&EN", image: "/News-Source/c&en.png" },
+    { name: "REUTERS", image: "/News-Source/reuters.png" },
+    { name: "ICIS", image: "/News-Source/icis.png" }
+  ]
+
   return (
     <section className="py-20 bg-white" id="pipeline">
       <div className="max-w-6xl mx-auto px-5">
@@ -32,23 +52,213 @@ export default function PipelineSection() {
         <p className="text-sm text-gray-700 mb-12">An end-to-end AI business intelligence engine. Turning scattered information into actionable clarity</p>
 
         <div className="bg-gradient-to-br from-slate-50 to-slate-100/50 p-8 rounded-xl mb-8 border border-slate-200/50 shadow-sm">
-          {/* <h3 className="text-xl font-bold text-center mb-2">GlobalBiz AI Workflow</h3>
+          <h3 className="text-xl font-bold text-center mb-2">GlobalBiz AI Workflow</h3>
           <p className="text-center text-gray-600 text-sm mb-8">
             AI-Powered Processing Pipeline—From 100,000+ sources to your inbox
-          </p> */}
+          </p>
 
-          <div className="flex justify-center mb-12">
-            <div className="relative w-full max-w-4xl">
-              <Image
-                src="/sections/pipline-section-architecture.png"
-                alt="GlobalBiz AI Pipeline Architecture"
-                width={800}
-                height={600}
-                className="w-full h-auto rounded-lg shadow-lg"
-                priority
-              />
+          <div className="relative w-full max-w-7xl mx-auto mb-12">
+            <div className="flex items-center gap-3">
+              <div className="w-48 flex-shrink-0">
+                <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+                  <div className="flex items-center gap-2 mb-4">
+                    <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <h3 className="text-sm font-semibold text-gray-700"> Aggregated News</h3>
+                  </div>
+                  <div className="relative h-[400px] overflow-hidden">
+                    <div className="animate-scroll-vertical space-y-4">
+                      {newsSources.map((source, idx) => (
+                        <div key={idx} className="flex items-center justify-center py-3 border-b border-gray-100 h-16">
+                          <div className="relative w-full h-12 flex items-center justify-center">
+                            <Image
+                              src={source.image}
+                              alt={source.name}
+                              width={120}
+                              height={48}
+                              className="object-contain max-h-12 w-auto"
+                              unoptimized
+                            />
+                          </div>
+                        </div>
+                      ))}
+                      {newsSources.map((source, idx) => (
+                        <div key={`dup-${idx}`} className="flex items-center justify-center py-3 border-b border-gray-100 h-16">
+                          <div className="relative w-full h-12 flex items-center justify-center">
+                            <Image
+                              src={source.image}
+                              alt={source.name}
+                              width={120}
+                              height={48}
+                              className="object-contain max-h-12 w-auto"
+                              unoptimized
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex-shrink-0 flex items-center">
+                <ArrowRight className="w-6 h-6 text-gray-400" />
+              </div>
+
+              <div className="flex-1">
+                <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                  <div className="flex items-center justify-center mb-6">
+                    <Image
+                      src="/agr-logo-light.png"
+                      alt="AGR Logo"
+                      width={200}
+                      height={60}
+                      className="h-10 w-auto"
+                      priority
+                    />
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-4 text-center">AGR AI</h3>
+
+                  <div className="flex items-stretch gap-3">
+                    <div className="flex-1 relative">
+                      <div className="bg-gradient-to-br from-white to-gray-50 rounded-lg p-3 border border-gray-200 shadow-sm hover:shadow-md transition-shadow h-full">
+                        <div className="flex flex-col items-center">
+                          <div className="w-12 h-12 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg flex items-center justify-center mb-2 shadow-sm">
+                            <FileText className="w-6 h-6 text-blue-600" />
+                          </div>
+                          <div className="text-center mb-2">
+                            <div className="text-xs font-semibold text-gray-400 mb-0.5">Step 1</div>
+                            <h4 className="text-sm font-bold text-gray-900">Fetch</h4>
+                          </div>
+                          <div className="bg-teal-50 rounded-lg p-2 w-full space-y-0.5 border border-teal-100">
+                            <div className="text-[10px] text-gray-700 leading-tight">• Prioritize Articles</div>
+                            <div className="text-[10px] text-gray-700 leading-tight">• De-duplicate</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="absolute top-6 -right-4 flex items-center">
+                        <ArrowRight className="w-5 h-5 text-gray-400" />
+                      </div>
+                    </div>
+
+                    <div className="flex-1 relative">
+                      <div className="bg-gradient-to-br from-white to-gray-50 rounded-lg p-3 border border-gray-200 shadow-sm hover:shadow-md transition-shadow h-full">
+                        <div className="flex flex-col items-center">
+                          <div className="w-12 h-12 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg flex items-center justify-center mb-2 shadow-sm">
+                            <Filter className="w-6 h-6 text-purple-600" />
+                          </div>
+                          <div className="text-center mb-2">
+                            <div className="text-xs font-semibold text-gray-400 mb-0.5">Step 2</div>
+                            <h4 className="text-sm font-bold text-gray-900">Filter</h4>
+                          </div>
+                          <div className="bg-teal-50 rounded-lg p-2 w-full space-y-0.5 text-[10px] text-gray-700 border border-teal-100 leading-tight">
+                            <div>• Inclusion Criteria</div>
+                            <div>• Exclusion Criteria</div>
+                            <div>• Customisation:</div>
+                            <div className="pl-1.5 space-y-0">
+                              <div>- industries, sources</div>
+                              <div>- regions, sectors</div>
+                              <div>- competitive intelligence</div>
+                              <div>- focus areas</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="absolute top-6 -right-4 flex items-center">
+                        <ArrowRight className="w-5 h-5 text-gray-400" />
+                      </div>
+                    </div>
+
+                    <div className="flex-1 relative">
+                      <div className="bg-gradient-to-br from-white to-gray-50 rounded-lg p-3 border border-gray-200 shadow-sm hover:shadow-md transition-shadow h-full">
+                        <div className="flex flex-col items-center">
+                          <div className="w-12 h-12 bg-gradient-to-br from-green-50 to-green-100 rounded-lg flex items-center justify-center mb-2 shadow-sm">
+                            <Tag className="w-6 h-6 text-green-600" />
+                          </div>
+                          <div className="text-center mb-2">
+                            <div className="text-xs font-semibold text-gray-400 mb-0.5">Step 3</div>
+                            <h4 className="text-sm font-bold text-gray-900">Summarize</h4>
+                          </div>
+                          <div className="bg-teal-50 rounded-lg p-2 w-full space-y-0.5 border border-teal-100">
+                            <div className="text-[10px] text-gray-700 leading-tight">• Summarization</div>
+                            <div className="text-[10px] text-gray-700 leading-tight">• Classification</div>
+                            <div className="text-[10px] text-gray-700 leading-tight">• Tags</div>
+                            <div className="text-[10px] text-gray-700 leading-tight">• Sentiment Analyzer</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="absolute top-6 -right-4 flex items-center">
+                        <ArrowRight className="w-5 h-5 text-gray-400" />
+                      </div>
+                    </div>
+
+                    <div className="flex-1 relative">
+                      <div className="bg-gradient-to-br from-white to-gray-50 rounded-lg p-3 border border-gray-200 shadow-sm hover:shadow-md transition-shadow h-full">
+                        <div className="flex flex-col items-center">
+                          <div className="w-12 h-12 bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg flex items-center justify-center mb-2 shadow-sm">
+                            <User className="w-6 h-6 text-orange-600" />
+                          </div>
+                          <div className="text-center mb-2">
+                            <div className="text-xs font-semibold text-gray-400 mb-0.5">Step 4</div>
+                            <h4 className="text-sm font-bold text-gray-900">Selects relevant articles</h4>
+                          </div>
+                          <div className="bg-white border border-gray-200 rounded-lg p-2 space-y-1.5 w-full">
+                            <div className="text-[10px] text-gray-700 text-center mb-1.5">Select or Reject</div>
+                            <div className="space-y-1 max-h-32 overflow-y-auto">
+                              {[1, 2, 3, 4, 5].map((num) => (
+                                <div key={num} className="flex items-center gap-1.5">
+                                  <div className={`w-3 h-3 border border-gray-300 rounded flex-shrink-0 flex items-center justify-center ${num === 2 ? 'bg-blue-500 border-blue-500' : ''}`}>
+                                    {num === 2 && (
+                                      <CheckCircle2 className="w-2.5 h-2.5 text-white" />
+                                    )}
+                                  </div>
+                                  <div className="text-[10px] text-gray-700 flex-1">Article {num}</div>
+                                </div>
+                              ))}
+                            </div>
+                            <button className="bg-blue-600 text-white px-3 py-1.5 rounded text-[10px] font-semibold hover:bg-blue-700 transition-colors w-full mt-2">
+                              Publish
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="absolute top-6 -right-4 flex items-center">
+                        <ArrowRight className="w-5 h-5 text-gray-400" />
+                      </div>
+                    </div>
+
+                    <div className="flex-1 relative">
+                      <div className="bg-gradient-to-br from-emerald-50/50 via-white to-indigo-50/30 rounded-lg p-3 border-2 border-emerald-200/60 shadow-md hover:shadow-lg transition-all duration-300 h-full relative overflow-hidden">
+                        {/* Subtle accent glow */}
+                        <div className="absolute top-0 right-0 w-20 h-20 bg-emerald-200/20 rounded-full blur-2xl -mr-10 -mt-10"></div>
+                        <div className="flex flex-col items-center relative z-10">
+                          <div className="w-12 h-12 bg-gradient-to-br from-indigo-100 to-emerald-100 rounded-lg flex items-center justify-center mb-2 shadow-sm border border-indigo-200/50">
+                            <Send className="w-6 h-6 text-indigo-600" />
+                          </div>
+                          <div className="text-center mb-2">
+                            <div className="text-xs font-semibold text-gray-500 mb-0.5">Step 5</div>
+                            <h4 className="text-sm font-bold text-gray-900">Auto report creation - Deliver</h4>
+                          </div>
+                          <div className="bg-emerald-50/70 rounded-lg p-2 w-full space-y-0.5 border border-emerald-200/50 mb-2">
+                            <div className="text-[10px] text-gray-700 leading-tight">• Auto Template Fill</div>
+                            <div className="text-[10px] text-gray-700 leading-tight">• Send to distribution list</div>
+                          </div>
+                          <div className="mt-auto pt-2 flex flex-col items-center">
+                            <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center shadow-md ring-2 ring-green-200/50">
+                              <CheckCircle className="w-5 h-5 text-white" />
+                            </div>
+                            <div className="text-[10px] text-gray-600 font-medium mt-1">Complete</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+
 
           <div className="bg-white p-6 rounded-lg grid grid-cols-1 md:grid-cols-3 gap-6 text-center mb-6 shadow-sm">
             <div>

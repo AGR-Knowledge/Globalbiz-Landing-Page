@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import Script from 'next/script'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
@@ -25,6 +26,42 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans antialiased pt-[90px]`}>
+        <Script
+          id="linkedin-partner-id"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              _linkedin_partner_id = "8188561";
+              window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+              window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+            `,
+          }}
+        />
+        <Script
+          id="linkedin-insights"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(l) {
+                if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
+                window.lintrk.q=[]}
+                var s = document.getElementsByTagName("script")[0];
+                var b = document.createElement("script");
+                b.type = "text/javascript";b.async = true;
+                b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+                s.parentNode.insertBefore(b, s);})(window.lintrk);
+            `,
+          }}
+        />
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: 'none' }}
+            alt=""
+            src="https://px.ads.linkedin.com/collect/?pid=8188561&fmt=gif"
+          />
+        </noscript>
         {children}
         <Analytics />
       </body>
