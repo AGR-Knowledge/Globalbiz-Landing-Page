@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
+import Image from 'next/image'
 import ContactModal from './contact-modal'
 
 export default function Hero() {
@@ -8,7 +9,11 @@ export default function Hero() {
   const [isMuted, setIsMuted] = useState(true)
   const [showContactModal, setShowContactModal] = useState(false)
   const [currentListItem, setCurrentListItem] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false)
+  const [isVideoReady, setIsVideoReady] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
+  const videoContainerRef = useRef<HTMLDivElement>(null)
 
   const listItems = [
     "GlobalBiz reads thousands of trusted sources",
@@ -32,6 +37,48 @@ export default function Hero() {
     }, 5000)
     return () => clearInterval(interval)
   }, [listItems.length])
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  useEffect(() => {
+    if (!isMobile || !videoContainerRef.current) {
+      setShouldLoadVideo(true)
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setShouldLoadVideo(true)
+            observer.disconnect()
+          }
+        })
+      },
+      {
+        rootMargin: '50px'
+      }
+    )
+
+    observer.observe(videoContainerRef.current)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [isMobile])
+
+  useEffect(() => {
+    if (shouldLoadVideo) {
+      setIsVideoReady(false)
+    }
+  }, [shouldLoadVideo])
 
   const toggleMute = () => {
     if (videoRef.current) {
@@ -122,41 +169,76 @@ export default function Hero() {
           </div>
 
           {/* Video Section */}
-          <div className="lg:col-span-7 relative">
+          <div className="lg:col-span-7 relative" ref={videoContainerRef}>
             <div className="relative bg-black rounded-xl overflow-hidden shadow-2xl ring-2 ring-gray-200/50">
               {/* Premium glow effect */}
               <div className="absolute -inset-0.5 bg-gradient-to-r from-[#E46C5D] via-[#B48BCB] to-[#6FA8E7] rounded-xl blur opacity-20"></div>
 
-              <div className="relative">
-                <video
-                  ref={videoRef}
-                  className="w-full h-auto object-cover"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  controls={false}
-                >
-                  <source src="https://agr-public.s3.ap-south-1.amazonaws.com/Globalbiz-landing-page-assets/hero-intro-show-reel.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
+              <div className="relative w-full aspect-video">
+                {shouldLoadVideo && (
+                  <video
+                    ref={videoRef}
+                    className="w-full h-full object-cover"
+                    autoPlay={!isMobile}
+                    loop
+                    muted
+                    playsInline
+                    controls={false}
+                    preload={isMobile ? "metadata" : "auto"}
+                    poster="/hero-show-reel-thumbnail.png"
+                    onLoadedMetadata={() => {
+                      setIsVideoReady(true)
+                    }}
+                    onLoadedData={() => {
+                      setIsVideoReady(true)
+                      if (isMobile && videoRef.current) {
+                        videoRef.current.play().catch(() => {
+                        })
+                      }
+                    }}
+                    onCanPlay={() => {
+                      setIsVideoReady(true)
+                    }}
+                    onError={() => {
+                      console.error('Video failed to load')
+                      setIsVideoReady(true)
+                    }}
+                  >
+                    <source src="https://agr-public.s3.ap-south-1.amazonaws.com/Globalbiz-landing-page-assets/hero-intro-show-reel.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                )}
 
-                {/* Mute/Unmute Button */}
-                <button
-                  onClick={toggleMute}
-                  className="absolute top-4 right-4 bg-black/60 hover:bg-black/80 text-white p-2.5 rounded-full transition-all duration-200 backdrop-blur-md shadow-lg hover:scale-110"
-                  aria-label={isMuted ? "Unmute video" : "Mute video"}
-                >
-                  {isMuted ? (
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.793L5.5 14H3a1 1 0 01-1-1V7a1 1 0 011-1h2.5l2.883-2.793a1 1 0 011.617.793zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clipRule="evenodd" />
-                    </svg>
-                  ) : (
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.793L5.5 14H3a1 1 0 01-1-1V7a1 1 0 011-1h2.5l2.883-2.793a1 1 0 011.617.793zM12.293 7.293a1 1 0 011.414 0L15 8.586l1.293-1.293a1 1 0 111.414 1.414L16.414 10l1.293 1.293a1 1 0 01-1.414 1.414L15 11.414l-1.293 1.293a1 1 0 01-1.414-1.414L13.586 10l-1.293-1.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                    </svg>
-                  )}
-                </button>
+                {(!shouldLoadVideo || !isVideoReady) && (
+                  <div className="w-full h-full absolute inset-0 z-10">
+                    <Image
+                      src="/hero-show-reel-thumbnail.png"
+                      alt="GlobalBiz Video Preview"
+                      fill
+                      className="object-cover"
+                      priority={!isMobile}
+                      sizes="(max-width: 1024px) 100vw, 66vw"
+                    />
+                  </div>
+                )}
+
+                {isVideoReady && (
+                  <button
+                    onClick={toggleMute}
+                    className="absolute top-4 right-4 bg-black/60 hover:bg-black/80 text-white p-2.5 rounded-full transition-all duration-200 backdrop-blur-md shadow-lg hover:scale-110 z-20"
+                    aria-label={isMuted ? "Unmute video" : "Mute video"}
+                  >
+                    {isMuted ? (
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.793L5.5 14H3a1 1 0 01-1-1V7a1 1 0 011-1h2.5l2.883-2.793a1 1 0 011.617.793zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clipRule="evenodd" />
+                      </svg>
+                    ) : (
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.617.793L5.5 14H3a1 1 0 01-1-1V7a1 1 0 011-1h2.5l2.883-2.793a1 1 0 011.617.793zM12.293 7.293a1 1 0 011.414 0L15 8.586l1.293-1.293a1 1 0 111.414 1.414L16.414 10l1.293 1.293a1 1 0 01-1.414 1.414L15 11.414l-1.293 1.293a1 1 0 01-1.414-1.414L13.586 10l-1.293-1.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                      </svg>
+                    )}
+                  </button>
+                )}
               </div>
             </div>
           </div>
