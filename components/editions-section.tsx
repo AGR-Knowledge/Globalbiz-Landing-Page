@@ -7,57 +7,57 @@ const editions = [
   {
     title: "RetailRadar",
     desc: "Retail, D2C, e-commerce, consumer trends",
-    image: "/editions-sections-imgs/RetailRadar.jpg"
+    image: "/editions-sections-imgs/RetailRadar.webp"
   },
   {
     title: "PharmaPulse",
     desc: "Pharma, biotech, & life-science innovation",
-    image: "/editions-sections-imgs/Pharma Pulse.jpg"
+    image: "/editions-sections-imgs/Pharma Pulse.webp"
   },
   {
     title: "Metals360",
     desc: "Aluminium, copper, lithium & energy-transition metals",
-    image: "/editions-sections-imgs/Metals360 bulletin.jpg"
+    image: "/editions-sections-imgs/Metals360 bulletin.webp"
   },
   {
     title: "FinTech Frontier",
     desc: "Fintech, blockchain, & digital finance decoded",
-    image: "/editions-sections-imgs/Fintech Frontier.jpg"
+    image: "/editions-sections-imgs/Fintech Frontier.webp"
   },
   {
     title: "AI Intellect",
     desc: "Generative AI, automation, & enterprise AI in action",
-    image: "/editions-sections-imgs/AI Intellect.jpg"
+    image: "/editions-sections-imgs/AI Intellect.webp"
   },
   {
     title: "EnergyEdge",
     desc: "Renewables, oil & gas, & sustainability mandates",
-    image: "/editions-sections-imgs/Energy Edge.jpg"
+    image: "/editions-sections-imgs/Energy Edge.webp"
   },
   {
     title: "RealtyRadar",
     desc: "Real estate, REITs, prop-tech, smart cities",
-    image: "/editions-sections-imgs/RealtyRadar.jpg"
+    image: "/editions-sections-imgs/RealtyRadar.webp"
   },
   {
     title: "StartupSphere",
     desc: "Funding rounds, accelerators, unicorn watch",
-    image: "/editions-sections-imgs/StartupSphere Bulletin.jpg"
+    image: "/editions-sections-imgs/StartupSphere Bulletin.webp"
   },
   {
     title: "HealthHorizon",
     desc: "Hospitals, diagnostics, telehealth, digital care",
-    image: "/editions-sections-imgs/HealthHorizon.jpg"
+    image: "/editions-sections-imgs/HealthHorizon.webp"
   },
   {
     title: "MarketMomentum",
     desc: "Macro, policy, tariffs, market-moving signals",
-    image: "/editions-sections-imgs/Market Momentum Bulletin.jpg"
+    image: "/editions-sections-imgs/Market Momentum Bulletin.webp"
   },
   {
     title: "LuxuryLife",
     desc: "Global fashion, lifestyle, beauty, retail's most premium",
-    image: "/editions-sections-imgs/Luxury life.jpg"
+    image: "/editions-sections-imgs/Luxury life.webp"
   },
   {
     title: "Custom",
@@ -140,6 +140,7 @@ export default function EditionsSection() {
                 fill
                 className="object-cover transition-opacity duration-500"
                 sizes="(max-width: 1024px) 100vw, 66vw"
+                loading="lazy"
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-200 to-gray-300">

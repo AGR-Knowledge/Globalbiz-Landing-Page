@@ -78,7 +78,7 @@ export default function PipelineSection() {
                               width={120}
                               height={48}
                               className="object-contain max-h-12 w-auto"
-                              unoptimized
+                              loading="lazy"
                             />
                           </div>
                         </div>
@@ -92,7 +92,7 @@ export default function PipelineSection() {
                               width={120}
                               height={48}
                               className="object-contain max-h-12 w-auto"
-                              unoptimized
+                              loading="lazy"
                             />
                           </div>
                         </div>
@@ -110,7 +110,7 @@ export default function PipelineSection() {
                 <div className="bg-white rounded-xl p-4 sm:p-5 md:p-6 shadow-sm border border-gray-200">
                   <div className="flex items-center justify-center mb-4 sm:mb-6">
                     <Image
-                      src="/agr-logo-light.png"
+                      src="/agr-logo-light.webp"
                       alt="AGR Logo"
                       width={200}
                       height={60}

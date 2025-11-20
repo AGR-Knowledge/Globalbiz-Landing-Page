@@ -48,10 +48,12 @@ export default function Hero() {
   }, [])
 
   useEffect(() => {
-    if (!isMobile || !videoContainerRef.current) {
+    if (!isMobile) {
       setShouldLoadVideo(true)
       return
     }
+
+    if (!videoContainerRef.current) return
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -77,6 +79,25 @@ export default function Hero() {
   useEffect(() => {
     if (shouldLoadVideo) {
       setIsVideoReady(false)
+    }
+  }, [shouldLoadVideo])
+
+  useEffect(() => {
+    if (shouldLoadVideo && videoRef.current) {
+      const loadVideo = () => {
+        if (videoRef.current) {
+          videoRef.current.preload = 'auto'
+          videoRef.current.load()
+        }
+      }
+
+      if ('requestIdleCallback' in window) {
+        const idleCallback = (window as any).requestIdleCallback(loadVideo, { timeout: 3000 })
+        return () => (window as any).cancelIdleCallback(idleCallback)
+      } else {
+        const timer = setTimeout(loadVideo, 3000)
+        return () => clearTimeout(timer)
+      }
     }
   }, [shouldLoadVideo])
 
@@ -184,8 +205,8 @@ export default function Hero() {
                     muted
                     playsInline
                     controls={false}
-                    preload={isMobile ? "metadata" : "auto"}
-                    poster="/hero-show-reel-thumbnail.png"
+                    preload="none"
+                    poster="/hero-show-reel-thumbnail.webp"
                     onLoadedMetadata={() => {
                       setIsVideoReady(true)
                     }}
@@ -212,11 +233,12 @@ export default function Hero() {
                 {(!shouldLoadVideo || !isVideoReady) && (
                   <div className="w-full h-full absolute inset-0 z-10">
                     <Image
-                      src="/hero-show-reel-thumbnail.png"
+                      src="/hero-show-reel-thumbnail.webp"
                       alt="GlobalBiz Video Preview"
                       fill
                       className="object-cover"
-                      priority={!isMobile}
+                      priority={true}
+                      fetchPriority="high"
                       sizes="(max-width: 1024px) 100vw, 66vw"
                     />
                   </div>

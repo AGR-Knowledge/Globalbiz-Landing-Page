@@ -23,11 +23,12 @@ export default function Footer() {
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <Image
-                src="/agr-logo-light.png"
+                src="/agr-logo-light.webp"
                 alt="AGR logo"
                 width={100}
                 height={30}
                 className="h-8 w-auto"
+                loading="lazy"
               />
               <div className="text-xl text-secondary-accent font-bold">GlobalBiz</div>
             </div>

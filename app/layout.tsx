@@ -4,17 +4,26 @@ import { Analytics } from '@vercel/analytics/next'
 import Script from 'next/script'
 import './globals.css'
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const _geist = Geist({
+  subsets: ["latin"],
+  display: 'swap',
+});
+const _geistMono = Geist_Mono({
+  subsets: ["latin"],
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'AGR GlobalBiz',
   description: 'AI-driven business intelligence reports for CXOs',
   generator: 'GlobalBiz Landing Page',
   icons: {
-    icon: '/agr_logo.png',
-    shortcut: '/agr_logo.png',
-    apple: '/agr_logo.png',
+    icon: '/agr_logo.webp',
+    shortcut: '/agr_logo.webp',
+    apple: '/agr_logo.webp',
+  },
+  other: {
+    'preconnect-agr-public': 'https://agr-public.s3.ap-south-1.amazonaws.com',
   },
 }
 
@@ -25,6 +34,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://agr-public.s3.ap-south-1.amazonaws.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.clarity.ms" />
+        <link rel="dns-prefetch" href="https://snap.licdn.com" />
+        <link rel="dns-prefetch" href="https://px.ads.linkedin.com" />
+        <link
+          rel="preload"
+          href="/hero-show-reel-thumbnail.webp"
+          as="image"
+          fetchPriority="high"
+        />
+      </head>
       <body className={`font-sans antialiased pt-[90px]`}>
         {/* Google Analytics */}
         <Script
@@ -59,7 +81,7 @@ export default function RootLayout({
         />
         <Script
           id="linkedin-partner-id"
-          strategy="beforeInteractive"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               _linkedin_partner_id = "8188561";
