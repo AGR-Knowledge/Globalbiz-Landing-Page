@@ -21,14 +21,14 @@ export default function Header() {
             {/* Left: Logo */}
             <div className="flex items-center gap-4 flex-shrink-0">
               <Image
-                src="/agr-logo-light.png"
+                src="/agr-logo-light.webp"
                 alt="AGR logo"
                 width={140}
                 height={42}
                 priority
                 className="h-10 w-auto"
               />
-              
+
             </div>
 
             {/* Center: Nav (desktop) */}
