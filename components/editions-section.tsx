@@ -67,7 +67,6 @@ const editions = [
 ]
 
 export default function EditionsSection() {
-  // Initialize with first edition that has an image
   const getFirstEditionWithImage = () => {
     const firstWithImage = editions.findIndex((e) => e.image !== null)
     return firstWithImage !== -1 ? firstWithImage : 0
@@ -75,37 +74,57 @@ export default function EditionsSection() {
 
   const [activeEdition, setActiveEdition] = useState<number>(getFirstEditionWithImage())
   const [isPaused, setIsPaused] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+  const [showImageModal, setShowImageModal] = useState(false)
+  const [modalEdition, setModalEdition] = useState<typeof editions[0] | null>(null)
 
   const currentEdition = editions[activeEdition]
 
-  // Auto-rotate carousel
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   useEffect(() => {
     if (isPaused) return
 
     const interval = setInterval(() => {
       setActiveEdition((prev) => {
         const nextIndex = prev + 1
-        // If we've reached the end, loop back to first edition with image
         if (nextIndex >= editions.length) {
           return getFirstEditionWithImage()
         }
-        // If next edition has no image, find next one with image
         if (editions[nextIndex]?.image === null) {
           const nextWithImage = editions.findIndex((e, idx) => idx > nextIndex && e.image !== null)
           return nextWithImage !== -1 ? nextWithImage : getFirstEditionWithImage()
         }
         return nextIndex
       })
-    }, 4000) // Change every 4 seconds
+    }, 4000)
 
     return () => clearInterval(interval)
   }, [isPaused])
 
   const handleEditionClick = (index: number) => {
-    setActiveEdition(index)
-    setIsPaused(true)
-    // Resume auto-rotation after 10 seconds of manual selection
-    setTimeout(() => setIsPaused(false), 10000)
+    const edition = editions[index]
+
+    if (isMobile && edition.image) {
+      setModalEdition(edition)
+      setShowImageModal(true)
+    } else {
+      setActiveEdition(index)
+      setIsPaused(true)
+      setTimeout(() => setIsPaused(false), 10000)
+    }
+  }
+
+  const closeImageModal = () => {
+    setShowImageModal(false)
+    setModalEdition(null)
   }
 
   return (
@@ -131,8 +150,7 @@ export default function EditionsSection() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          {/* Left: Image Preview */}
-          <div className="lg:col-span-8 relative h-auto rounded-xl overflow-hidden shadow-2xl bg-gray-100">
+          <div className="hidden lg:block lg:col-span-8 relative h-auto rounded-xl overflow-hidden shadow-2xl bg-gray-100">
             {currentEdition?.image ? (
               <Image
                 src={currentEdition.image}
@@ -150,7 +168,6 @@ export default function EditionsSection() {
                 </div>
               </div>
             )}
-            {/* Title overlay */}
             {currentEdition?.image && (
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
                 <h3 className="text-xl font-bold text-white mb-1">{currentEdition.title}</h3>
@@ -159,7 +176,6 @@ export default function EditionsSection() {
             )}
           </div>
 
-          {/* Right: Vertical Carousel */}
           <div className="lg:col-span-4 relative flex flex-col justify-center">
             <div className="space-y-2.5">
               {editions.map((edition, idx) => (
@@ -188,6 +204,45 @@ export default function EditionsSection() {
           </div>
         </div>
       </div>
+
+      {showImageModal && modalEdition && (
+        <div
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 lg:hidden"
+          onClick={closeImageModal}
+        >
+          <div
+            className="bg-white rounded-xl shadow-2xl w-full max-w-lg h-[70vh] overflow-hidden flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex justify-between items-center p-4 border-b border-gray-200 flex-shrink-0">
+              <div>
+                <h3 className="text-xl font-bold text-gray-900">{modalEdition.title}</h3>
+                <p className="text-sm text-gray-600">{modalEdition.desc}</p>
+              </div>
+              <button
+                onClick={closeImageModal}
+                className="text-gray-400 hover:text-gray-600 transition-colors p-2"
+                aria-label="Close modal"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="relative w-full flex-1 bg-gray-100 min-h-0">
+              <Image
+                src={modalEdition.image!}
+                alt={`${modalEdition.title} preview`}
+                fill
+                className="object-contain"
+                sizes="100vw"
+                priority
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
