@@ -17,21 +17,21 @@ export default function PipelineSection() {
   }
 
   const newsSources = [
-    { name: "THE WALL STREET JOURNAL", image: "/News-Source/wsj.png" },
-    { name: "The New York Times", image: "/News-Source/ny-times.png" },
-    { name: "Commercial Property Executive", image: "/News-Source/cpe.png" },
-    { name: "FINANCIAL TIMES", image: "/News-Source/ft.png" },
-    { name: "Nareit", image: "/News-Source/nareit.png" },
-    { name: "Forbes", image: "/News-Source/forbes.png" },
-    { name: "CNBC", image: "/News-Source/cnbc.png" },
-    { name: "WWD", image: "/News-Source/wwd.png" },
-    { name: "VOGUE Business", image: "/News-Source/vouge-business.png" },
-    { name: "ChemicalWeekly", image: "/News-Source/chemical-weekly.png" },
-    { name: "Plastics News", image: "/News-Source/plastics-news.png" },
-    { name: "Bloomberg", image: "/News-Source/bloomberg.png" },
-    { name: "C&EN", image: "/News-Source/c&en.png" },
-    { name: "REUTERS", image: "/News-Source/reuters.png" },
-    { name: "ICIS", image: "/News-Source/icis.png" }
+    { name: "THE WALL STREET JOURNAL", image: "/News-Source/wsj.webp" },
+    { name: "The New York Times", image: "/News-Source/ny-times.webp" },
+    { name: "Commercial Property Executive", image: "/News-Source/cpe.webp" },
+    { name: "FINANCIAL TIMES", image: "/News-Source/ft.webp" },
+    { name: "Nareit", image: "/News-Source/nareit.webp" },
+    { name: "Forbes", image: "/News-Source/forbes.webp" },
+    { name: "CNBC", image: "/News-Source/cnbc.webp" },
+    { name: "WWD", image: "/News-Source/wwd.webp" },
+    { name: "VOGUE Business", image: "/News-Source/vouge-business.webp" },
+    { name: "ChemicalWeekly", image: "/News-Source/chemical-weekly.webp" },
+    { name: "Plastics News", image: "/News-Source/plastics-news.webp" },
+    { name: "Bloomberg", image: "/News-Source/bloomberg.webp" },
+    { name: "C&EN", image: "/News-Source/c&en.webp" },
+    { name: "REUTERS", image: "/News-Source/reuters.webp" },
+    { name: "ICIS", image: "/News-Source/icis.webp" }
   ]
 
   return (

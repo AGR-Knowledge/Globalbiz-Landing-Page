@@ -24,6 +24,24 @@ export default function Hero() {
     "You just select and send"
   ]
 
+  const newsSources = [
+    { name: "THE WALL STREET JOURNAL", image: "/News-Source/wsj.webp" },
+    { name: "The New York Times", image: "/News-Source/ny-times.webp" },
+    { name: "Commercial Property Executive", image: "/News-Source/cpe.webp" },
+    { name: "FINANCIAL TIMES", image: "/News-Source/ft.webp" },
+    { name: "Nareit", image: "/News-Source/nareit.webp" },
+    { name: "Forbes", image: "/News-Source/forbes.webp" },
+    { name: "CNBC", image: "/News-Source/cnbc.webp" },
+    { name: "WWD", image: "/News-Source/wwd.webp" },
+    { name: "VOGUE Business", image: "/News-Source/vouge-business.webp" },
+    { name: "ChemicalWeekly", image: "/News-Source/chemical-weekly.webp" },
+    { name: "Plastics News", image: "/News-Source/plastics-news.webp" },
+    { name: "Bloomberg", image: "/News-Source/bloomberg.webp" },
+    { name: "C&EN", image: "/News-Source/c&en.webp" },
+    { name: "REUTERS", image: "/News-Source/reuters.webp" },
+    { name: "ICIS", image: "/News-Source/icis.webp" }
+  ]
+
   useEffect(() => {
     const interval = setInterval(() => {
       setPulse((prev) => !prev)
@@ -265,9 +283,48 @@ export default function Hero() {
             </div>
           </div>
         </div>
+
+        <div className="mt-12 lg:mt-16">
+          <div className="text-sm text-gray-500 font-medium mb-4 px-6 lg:px-8">We Cover:</div>
+          <div className="w-full overflow-hidden -mx-6 lg:-mx-8">
+            <div className="relative overflow-hidden ml-16">
+              <div className="flex animate-scroll-horizontal gap-8">
+                {newsSources.map((source, idx) => (
+                  <div
+                    key={idx}
+                    className="flex-shrink-0 flex items-center justify-center h-12 px-4"
+                  >
+                    <Image
+                      src={source.image}
+                      alt={source.name}
+                      width={120}
+                      height={48}
+                      className="object-contain max-h-12 w-auto grayscale hover:grayscale-0 transition-all duration-300"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+                {newsSources.map((source, idx) => (
+                  <div
+                    key={`dup-${idx}`}
+                    className="flex-shrink-0 flex items-center justify-center h-12 px-4"
+                  >
+                    <Image
+                      src={source.image}
+                      alt={source.name}
+                      width={120}
+                      height={48}
+                      className="object-contain max-h-12 w-auto grayscale hover:grayscale-0 transition-all duration-300"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Contact Modal */}
       <ContactModal isOpen={showContactModal} onClose={closeContactModal} />
     </section>
   )
